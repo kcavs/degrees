@@ -91,16 +91,11 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-    num_explored = 0
-    first=Node(state=source,parent=None,action=None)
-    frontier=StackFrontier
-    frontier.add(first)
-    explored= set()
-    while True:
-        if frontier.empty():
-            return None
-        node=frontier.remove()
-        num_explored+=1
+    explored=set()
+    StackFrontier().add(source)
+    while len(StackFrontier())!=0:
+        QueueFrontier(StackFrontier())
+
     # TODO
     raise NotImplementedError
 
