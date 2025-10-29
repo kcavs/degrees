@@ -70,7 +70,7 @@ def main():
         sys.exit("Person not found.")
 
     path = shortest_path(source, target)
-
+    """
     if path is None:
         print("Not connected.")
     else:
@@ -82,7 +82,8 @@ def main():
             person2 = people[path[i + 1][1]]["name"]
             movie = movies[path[i + 1][0]]["title"]
             print(f"{i + 1}: {person1} and {person2} starred in {movie}")
-
+    """
+    print(path)
 
 def shortest_path(source, target):
     """
@@ -91,13 +92,22 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    solution=None
     explored=set()
+    path=set()
     StackFrontier().add(source)
     while len(StackFrontier())!=0:
-        QueueFrontier(StackFrontier())
-
-    # TODO
-    raise NotImplementedError
+        look=QueueFrontier(StackFrontier())
+        if look not in explored: 
+            if look==target:
+                solution=look
+            else:
+                for item in neighbors_for_person(look):
+                    StackFrontier().add(item)
+            explored.add(look)
+        if solution!=None:
+            break
+    return solution
 
 
 def person_id_for_name(name):
